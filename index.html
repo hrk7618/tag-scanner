@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart EV Charging Station</title>
+    <script>
+        async function sendRFIDTag() {
+            const rfidTag = document.getElementById('rfidTag').value;
+            if (rfidTag) {
+                const response = await fetch('http://<ESP32_IP>/saveRFID', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ rfidTag })
+                });
+                const result = await response.json();
+                alert(result.message);
+            } else {
+                alert('Please enter a valid RFID tag number.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <h2>RFID Management</h2>
+        <input type="text" id="rfidTag" placeholder="Enter RFID Tag Number" />
+        <button onclick="sendRFIDTag()">Save RFID Tag</button>
+    </div>
+</body>
+</html>
